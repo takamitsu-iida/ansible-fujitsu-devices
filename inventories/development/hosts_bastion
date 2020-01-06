@@ -1,0 +1,10 @@
+#
+# jump host
+#
+
+[bastion]
+pg04 ansible_host=10.35.158.20 ansible_user=bastion
+
+[bastion:vars]
+ansible_python_interpreter = /usr/bin/python3
+ansible_ssh_common_args = ""

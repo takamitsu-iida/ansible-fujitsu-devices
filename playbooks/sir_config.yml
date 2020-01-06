@@ -1,0 +1,19 @@
+---
+
+#
+# edit si-r
+#
+
+- name: Edit configuration of si-r
+  hosts: sir_routers
+  gather_facts: false
+
+  tasks:
+    - name: send config commands to si-r router
+      fujitsu_sir_config:
+        commands:
+          - sysname iida
+      register: output
+
+    - debug:
+        var: output

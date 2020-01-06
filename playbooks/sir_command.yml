@@ -1,0 +1,26 @@
+---
+
+#
+# send commands to si-r
+#
+
+- name: Gather information from si-r
+  hosts: sir_routers
+  gather_facts: false
+
+  tasks:
+    - name: send commands to si-r router
+      fujitsu_sir_command:
+        commands:
+          - show system info
+          - show running-config
+          - show interface
+      register: output
+
+    - name: show results
+      debug:
+        msg: |
+          {% for item in output.stdout %}
+          {{item}}
+
+          {% endfor %}

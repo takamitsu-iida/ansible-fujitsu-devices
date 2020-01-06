@@ -1,0 +1,27 @@
+---
+
+#
+# send commands to ipcom
+#
+
+- name: Gather information from ipcom
+  hosts: anez_ve2
+  gather_facts: false
+
+  tasks:
+    - name: send commands to ipcom
+      fujitsu_ipcom_command:
+        commands:
+          - show system information
+          - show running-config
+          - show startup-config
+          - show interface
+      register: output
+
+    - name: show results
+      debug:
+        msg: |
+          {% for item in output.stdout %}
+          {{item}}
+
+          {% endfor %}

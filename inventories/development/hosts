@@ -1,0 +1,7 @@
+#
+# development
+#
+
+[ipcom]
+iida_ve2 ansible_host=172.18.0.15
+anez_ve2 ansible_host=192.168.1.78 ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q root@10.35.180.54"'

@@ -1,0 +1,13 @@
+---
+
+- name: check if item (directory) is empty
+  find:
+    paths: "{{ item }}"
+    file_type: any
+  register: path_list
+
+- name: remove item (directory) if empty
+  file:
+    path: "{{ item }}"
+    state: absent
+  when: path_list.matched == 0

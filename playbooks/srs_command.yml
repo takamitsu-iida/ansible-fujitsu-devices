@@ -1,0 +1,32 @@
+---
+
+#
+# send commands to ipcom
+#
+
+- name: Gather information from sr-s
+  hosts: srs_switches
+  gather_facts: false
+
+  tasks:
+    - name: send commands to sr-s switch
+      fujitsu_srs_command:
+        commands:
+          - show system info
+          - show running-config
+          - show interface
+      register: output
+
+    - name: set facts
+      set_fact:
+        # sysnameの取り出しは面倒
+        # 正規表現のグループ抽出は結果が配列なので、joinで展開する
+        sysname: "{{ output.stdout[1] | regex_search('sysname (?P<name>.+)', '\\g<name>') | join }}"
+
+    - name: show results
+      debug:
+        msg: |
+          {% for item in output.stdout %}
+          {{item}}
+
+          {% endfor %}

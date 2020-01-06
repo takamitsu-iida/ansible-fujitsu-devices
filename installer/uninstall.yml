@@ -1,0 +1,67 @@
+---
+
+#
+# uninstall cliconf and terminal plugin
+#
+
+- name: install cliconf and terminal plugin
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+    plugins_dir: ~/.ansible/plugins
+    cliconf_dir: ~/.ansible/plugins/cliconf
+    terminal_dir: ~/.ansible/plugins/terminal
+    module_utils_dir: ~/.ansible/plugins/module_utils
+    modules_dir: ~/.ansible/plugins/modules
+    src_files:
+      - fujitsu_ipcom.py
+      - fujitsu_sir.py
+      - fujitsu_srs.py
+    module_files:
+      - fujitsu_ipcom_command.py
+      - fujitsu_ipcom_config.py
+      - fujitsu_ipcom_facts.py
+      - fujitsu_sir_command.py
+      - fujitsu_sir_config.py
+      - fujitsu_sir_facts.py
+      - fujitsu_srs_command.py
+      - fujitsu_srs_config.py
+      - fujitsu_srs_facts.py
+
+  tasks:
+    - name: delete cliconf files
+      file:
+        path: "{{ cliconf_dir }}/{{ item }}"
+        state: absent
+      loop: "{{ src_files }}"
+
+    - name: delete terminal plugin files
+      file:
+        path: "{{ terminal_dir }}/{{ item }}"
+        state: absent
+      loop: "{{ src_files }}"
+
+    - name: delete module_utils files
+      file:
+        path: "{{ module_utils_dir }}/{{ item }}"
+        state: absent
+      loop: "{{ src_files }}"
+
+    - name: delete modules files
+      file:
+        path: "{{ modules_dir }}/{{ item }}"
+        state: absent
+      loop: "{{ module_files }}"
+
+    - name: check if cliconf_dir is empty
+      include_tasks: delete_dir.yml
+      loop:
+        - "{{ cliconf_dir }}"
+        - "{{ terminal_dir }}"
+        - "{{ module_utils_dir }}"
+        - "{{ modules_dir }}"
+        - "{{ plugins_dir }}"
+
+
