@@ -1,4 +1,4 @@
-# Ansible Collection - iida.fujitsu
+# ansible-fujitsu-devices
 
 test implementation of network-cli module to support fujitsu devices
 
