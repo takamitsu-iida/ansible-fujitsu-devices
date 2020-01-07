@@ -6,7 +6,7 @@ ansible_network_os: fujitsu_ipcom
 
 # ansible_user: user
 ansible_user: admin
-ansible_password: "{{ vault_pass | default('') }}"
+ansible_password: "{{ vault_pass | default('adminadmin') }}"
 
 ansible_become: true
 ansible_become_method: enable  # IPCOMに投入するコマンドはadminコマンドなんだけど、ここでの指定はenableを使う

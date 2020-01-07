@@ -54,6 +54,7 @@ def main():
 
   argument_spec = dict(
     lines=dict(type='list', aliases=['commands'], required=True),
+    save_when=dict(choices=['always', 'never', 'modified', 'changed'], default='never'),
   )
 
   module = AnsibleModule(
